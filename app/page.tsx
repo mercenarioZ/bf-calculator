@@ -4,26 +4,13 @@ import { useEffect, useState } from "react";
 import { convertStringToArray } from "./utils/script";
 import List from "./components/ConvertedParticipantsList";
 import toast from "react-hot-toast";
-
-export interface Participant {
-  name: string;
-  minutesPlayed: number;
-}
+import { Participant } from "./types";
 
 export default function Home() {
   const [input, setInput] = useState("");
   const [participants, setParticipants] = useState<Participant[]>([]);
   const [totalMinutes, setTotalMinutes] = useState<number | null>(null);
   const [numberOfShuttle, setNumberOfShuttle] = useState<number | null>(null);
-
-  /*
-  list of players as string:
-  1. player1
-  2. player2
-  3. player3
-  4. player4
-  5. player5
-  */
 
   // debugging
   useEffect(() => {
