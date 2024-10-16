@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { convertStringToArray } from "./utils/script";
 import List from "./components/ConvertedParticipantsList";
+import toast from "react-hot-toast";
 
 export interface Participant {
   name: string;
@@ -41,7 +42,7 @@ export default function Home() {
             <label htmlFor="shuttle">Number of shuttle</label>
             <input
               id="shuttle"
-              className="text-black rounded-md p-1"
+              className="text-black rounded-md w-20 p-1"
               type="number"
               value={numberOfShuttle ?? ""}
               onChange={(e) => setNumberOfShuttle(Number(e.target.value))}
@@ -80,6 +81,12 @@ export default function Home() {
                 });
 
                 setParticipants(playersWithMinutes);
+                
+                if (players.length === 0) {
+                  toast.error("Please enter the list of players");
+                } else {
+                  toast.success("Players converted successfully");
+                }
               }}
             >
               Convert
