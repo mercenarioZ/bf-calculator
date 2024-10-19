@@ -1,5 +1,4 @@
-import { Participant } from "../page";
-
+import { Participant } from "../types";
 interface ParticipantsListProps {
   participants: Participant[];
   setParticipants: React.Dispatch<React.SetStateAction<Participant[]>>;
@@ -25,7 +24,7 @@ const ConvertedParticipantsList: React.FC<ParticipantsListProps> = ({
         >
           <div className="w-20 text-wrap pl-3">{item.name}</div>
           <input
-            type="text"
+            type="number"
             className="w-16 rounded-md py-1 px-2 text-center text-black"
             value={item.minutesPlayed}
             onChange={(e) =>
