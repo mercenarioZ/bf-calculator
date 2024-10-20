@@ -28,7 +28,7 @@ export default function Home() {
   }, [participants, shuttlePrice]);
 
   return (
-    <div className="h-[100vh] bg-zinc-900">
+    <div className="h-[100vh] bg-zinc-800">
       <Navbar />
 
       <div className="pt-20 text-slate-100 flex items-center justify-center gap-4 px-4">

@@ -1,30 +1,35 @@
+"use client";
+
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 const Navbar = () => {
   const pathname = usePathname();
+  const router = useRouter();
 
   return (
-    <nav className="z-20 backdrop-blur-md text-black p-3 fixed w-full border-b bg-slate-200">
-      <div className="flex gap-4 items-center">
-        <div className="font-semibold text-xl">Badminton Fee Calculator</div>
+    <nav className="z-20 backdrop-blur-md text-black p-3 fixed w-full bg-slate-100">
+      <div className="flex gap-8 items-center">
+        <div className="font-semibold text-xl cursor-pointer" onClick={() => router.push("/")}>Badminton Fee Calculator</div>
 
-        <div>
-          <Link
-            href="/"
-            className={`${pathname === "/" ? "font-medium" : ""}`}
-          >
-            Home
-          </Link>
-        </div>
+        <div className="flex items-center gap-4">
+          <div>
+            <Link
+              href="/"
+              className={`${pathname === "/" ? "font-medium" : ""}`}
+            >
+              Home
+            </Link>
+          </div>
 
-        <div>
-          <Link
-            href="/register"
-            className={`${pathname === "/register" ? "font-medium" : ""}`}
-          >
-            Register
-          </Link>
+          <div>
+            <Link
+              href="/register"
+              className={`${pathname === "/register" ? "font-medium" : ""}`}
+            >
+              Register
+            </Link>
+          </div>
         </div>
       </div>
     </nav>
