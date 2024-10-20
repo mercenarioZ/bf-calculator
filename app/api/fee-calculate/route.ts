@@ -26,9 +26,6 @@ export async function POST(request: Request) {
 
   const { participants, hourlyRates, shuttlePrice } = body;
 
-  // create a current time to send back to the client
-  const date = new Date();
-
   if (!participants || !hourlyRates || !shuttlePrice) {
     return new Response("Invalid input", { status: 400 });
   }

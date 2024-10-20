@@ -35,9 +35,9 @@ export default function Home() {
         <div className="flex flex-col gap-3 items-center">
           <div className="flex gap-4 items-center flex-col">
             <div className="flex gap-2 items-center">
-              <label htmlFor="price">Shuttle price</label>
+              <label htmlFor="shuttlePrice">Shuttle price</label>
               <input
-                id="price"
+                id="shuttlePrice"
                 className="text-center text-black rounded-md w-20 p-1"
                 type="number"
                 value={shuttlePrice ?? ""}
@@ -61,7 +61,7 @@ export default function Home() {
           <textarea
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Enter the list of players"
+            placeholder="Enter the list of participants"
             className="w-80 h-60 p-2 bg-zinc-700 rounded-md text-white focus:outline-none"
           />
 
