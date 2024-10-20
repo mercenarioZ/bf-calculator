@@ -6,8 +6,8 @@ import toast from "react-hot-toast";
 import { Participant } from "./types";
 import ConvertedParticipantsList from "./components/ConvertedParticipantsList";
 import Navbar from "./components/Navbar";
-import Link from "next/link";
 import axios from "axios";
+import Modal from "./components/Modal";
 
 export default function Home() {
   const [input, setInput] = useState("");
@@ -15,6 +15,9 @@ export default function Home() {
   const [totalMinutes, setTotalMinutes] = useState<number | null>(null);
   const [shuttlePrice, setShuttlePrice] = useState<number | null>(null);
   const [hourlyRates, setHourlyRates] = useState<string | null>(null);
+
+  // modal state
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // debugging
   useEffect(() => {
@@ -26,9 +29,7 @@ export default function Home() {
 
   return (
     <div className="h-[100vh] bg-zinc-900">
-      <Link href="/">
-        <Navbar title="Shuttle Time Calculator" />
-      </Link>
+      <Navbar />
 
       <div className="pt-20 text-slate-100 flex items-center justify-center gap-4 px-4">
         <div className="flex flex-col gap-3 items-center">
@@ -61,7 +62,7 @@ export default function Home() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Enter the list of players"
-            className="w-80 h-80 p-2 bg-zinc-700 rounded-md text-white"
+            className="w-80 h-60 p-2 bg-zinc-700 rounded-md text-white focus:outline-none"
           />
 
           <div className="flex gap-2 items-center">
@@ -96,7 +97,7 @@ export default function Home() {
                   };
                 });
 
-                console.log()
+                console.log();
                 setParticipants(playersWithMinutes);
 
                 if (players.length === 0) {
@@ -118,7 +119,7 @@ export default function Home() {
           />
         )}
       </div>
-      <div className="flex items-center justify-center pt-10">
+      <div className="flex items-center justify-center flex-col pt-4">
         {/* click to send data to /api/fee-calculate */}
         <button
           className="text-white bg-zinc-700 w-44 rounded-md p-2 hover:bg-zinc-800 transition"
@@ -132,7 +133,21 @@ export default function Home() {
         >
           Calculate
         </button>
+
+        <button
+          className="text-white"
+          onClick={() => setIsModalOpen(true)}
+        >
+          open modal
+        </button>
       </div>
+
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      >
+        hello world
+      </Modal>
     </div>
   );
 }
