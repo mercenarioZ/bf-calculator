@@ -8,7 +8,7 @@ const Navbar = () => {
   const router = useRouter();
 
   return (
-    <nav className="z-20 backdrop-blur-md text-black p-3 fixed w-full bg-slate-100">
+    <nav className="z-20 backdrop-blur-md text-white p-3 fixed w-full bg-red-500">
       <div className="flex gap-8 items-center">
         <div className="font-semibold text-xl cursor-pointer" onClick={() => router.push("/")}>Badminton Fee Calculator</div>
 

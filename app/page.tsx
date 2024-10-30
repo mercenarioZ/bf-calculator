@@ -28,17 +28,17 @@ export default function Home() {
   }, [participants, shuttlePrice]);
 
   return (
-    <div className="h-[100vh] bg-zinc-800">
+    <div className="h-[100vh] bg-white">
       <Navbar />
 
-      <div className="pt-20 text-slate-100 flex items-center justify-center gap-4 px-4">
+      <div className="pt-20 text-zinc-800 flex items-center justify-center gap-4 px-4">
         <div className="flex flex-col gap-3 items-center">
           <div className="flex gap-4 items-center flex-col">
             <div className="flex gap-2 items-center">
               <label htmlFor="shuttlePrice">Shuttle price</label>
               <input
                 id="shuttlePrice"
-                className="text-center text-black rounded-md w-20 p-1"
+                className="text-center text-black border-2  rounded-md w-20 p-1"
                 type="number"
                 value={shuttlePrice ?? ""}
                 onChange={(e) => setShuttlePrice(Number(e.target.value))}
@@ -50,7 +50,7 @@ export default function Home() {
               <label htmlFor="hourlyRates">Hourly rates</label>
               <input
                 id="hourlyRates"
-                className="text-center text-black rounded-md w-20 p-1"
+                className="text-center text-black rounded-md w-20 p-1 border-2"
                 type="text"
                 value={hourlyRates ?? ""}
                 onChange={(e) => setHourlyRates(e.target.value)}
@@ -62,13 +62,13 @@ export default function Home() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Enter the list of participants"
-            className="w-80 h-60 p-2 bg-zinc-700 rounded-md text-white focus:outline-none"
+            className="w-80 h-60 p-2 border rounded-md focus:outline-none"
           />
 
           <div className="flex gap-2 items-center">
             <label htmlFor="">Total minutes played</label>
             <input
-              className="text-center text-black rounded-md p-1 w-20"
+              className="text-center text-black rounded-md p-1 w-20 border-2"
               type="number"
               value={totalMinutes ?? ""}
               onChange={(e) => setTotalMinutes(Number(e.target.value))}
@@ -79,7 +79,7 @@ export default function Home() {
           <form>
             {/* convert button */}
             <button
-              className="bg-zinc-700 w-44 rounded-md p-2 hover:bg-zinc-800 transition"
+              className="bg-zinc-700 w-44 rounded-md p-2 text-white hover:bg-zinc-800 transition"
               onClick={(e) => {
                 e.preventDefault();
 
