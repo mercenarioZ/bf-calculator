@@ -5,7 +5,7 @@ import { Participant } from "@/app/types";
 import { NextResponse } from "next/server";
 
 interface RequestBody {
-  name: string;
+  name?: string;
   participants: Participant[];
   hourlyRates: number[];
   shuttlePrice: number;

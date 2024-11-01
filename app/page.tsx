@@ -11,13 +11,14 @@ import axios from "axios";
 export default function Home() {
   const [input, setInput] = useState("");
   const [participants, setParticipants] = useState<Participant[]>([]);
-  const [totalMinutes, setTotalMinutes] = useState<number | null>(null);
   const [shuttlePrice, setShuttlePrice] = useState<number | null>(null);
   const [hourlyRates, setHourlyRates] = useState<string | null>(null);
+  const [sessionName, setSessionName] = useState<string | null>(null);
 
   const submitData = async () => {
     try {
       const response = await axios.post("/api/fee-calculate", {
+        name: sessionName,
         participants,
         shuttlePrice,
         hourlyRates: hourlyRates?.split(","),
@@ -43,11 +44,27 @@ export default function Home() {
                 htmlFor="shuttlePrice"
                 className="w-[100px]"
               >
+                Session name
+              </label>
+              <input
+                id="shuttlePrice"
+                className="text-black border-2  rounded-md w-[25vw] p-2"
+                type="text"
+                value={sessionName ?? ""}
+                onChange={(e) => setSessionName(e.target.value)}
+                placeholder="Court name: Start time - End time"
+              />
+            </div>
+            <div className="flex gap-2 items-center">
+              <label
+                htmlFor="shuttlePrice"
+                className="w-[100px]"
+              >
                 Shuttle price
               </label>
               <input
                 id="shuttlePrice"
-                className="text-center text-black border-2  rounded-md w-24 p-1"
+                className="text-center text-black border-2  rounded-md w-[25vw] p-1"
                 type="number"
                 value={shuttlePrice ?? ""}
                 onChange={(e) => setShuttlePrice(Number(e.target.value))}
@@ -64,18 +81,22 @@ export default function Home() {
               </label>
               <input
                 id="hourlyRates"
-                className="text-center text-black rounded-md w-24 p-1 border-2"
+                className="text-center text-black rounded-md w-[25vw] p-1 border-2"
                 type="text"
                 value={hourlyRates ?? ""}
                 onChange={(e) => setHourlyRates(e.target.value)}
+                placeholder="in k VND. Ex: 50, 70, 50"
               />
             </div>
           </div>
+
+          <hr />
+
           <textarea
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Enter the list of participants"
-            className="w-80 h-60 p-2 border rounded-md focus:outline-none"
+            className="w-80 h-40 p-2 border rounded-md focus:outline-none"
           />
 
           <form>
@@ -121,10 +142,10 @@ export default function Home() {
         )}
       </div>
 
-      <div className="flex items-center justify-center flex-col mt-20">
+      <div className="flex items-center justify-center flex-col mt-12">
         {/* click to send data to /api/fee-calculate */}
         <button
-          className="text-white text-xl bg-zinc-700 w-44 rounded-md p-8 hover:bg-zinc-800 transition"
+          className="text-white text-xl bg-zinc-700 w-44 rounded-md p-4 hover:bg-zinc-800 transition"
           onClick={submitData}
         >
           Submit
