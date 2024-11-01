@@ -27,7 +27,7 @@ const Navbar = () => {
               href="/register"
               className={`${pathname === "/register" ? "font-medium" : ""}`}
             >
-              Register
+              Check for sessions
             </Link>
           </div>
         </div>

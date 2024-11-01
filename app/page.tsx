@@ -15,16 +15,21 @@ export default function Home() {
   const [shuttlePrice, setShuttlePrice] = useState<number | null>(null);
   const [hourlyRates, setHourlyRates] = useState<string | null>(null);
 
-  // modal state
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const submitData = async () => {
+    try {
+      const response = await axios.post("/api/fee-calculate", {
+        participants,
+        shuttlePrice,
+        hourlyRates: hourlyRates?.split(","),
+      });
 
-  // debugging
-  // useEffect(() => {
-  //   console.log({
-  //     participants,
-  //     shuttlePrice,
-  //   });
-  // }, [participants, shuttlePrice]);
+      console.log(response.data);
+      toast.success("Fee calculated, session created");
+    } catch (error) {
+      console.error("Failed to calculate fee: ", error);
+      toast.error("Failed to calculate fee");
+    }
+  };
 
   return (
     <div className="h-[100vh] bg-white">
@@ -34,22 +39,32 @@ export default function Home() {
         <div className="flex flex-col gap-3 items-center">
           <div className="flex gap-4 items-start flex-col">
             <div className="flex gap-2 items-center">
-              <label htmlFor="shuttlePrice">Shuttle price</label>
+              <label
+                htmlFor="shuttlePrice"
+                className="w-[100px]"
+              >
+                Shuttle price
+              </label>
               <input
                 id="shuttlePrice"
-                className="text-center text-black border-2  rounded-md w-20 p-1"
+                className="text-center text-black border-2  rounded-md w-24 p-1"
                 type="number"
                 value={shuttlePrice ?? ""}
                 onChange={(e) => setShuttlePrice(Number(e.target.value))}
+                placeholder="in k VND"
               />
-              <span>k VND</span>
             </div>
 
             <div className="flex gap-2 items-center">
-              <label htmlFor="hourlyRates">Hourly rates</label>
+              <label
+                className="w-[100px]"
+                htmlFor="hourlyRates"
+              >
+                Hourly rates
+              </label>
               <input
                 id="hourlyRates"
-                className="text-center text-black rounded-md w-20 p-1 border-2"
+                className="text-center text-black rounded-md w-24 p-1 border-2"
                 type="text"
                 value={hourlyRates ?? ""}
                 onChange={(e) => setHourlyRates(e.target.value)}
@@ -62,17 +77,6 @@ export default function Home() {
             placeholder="Enter the list of participants"
             className="w-80 h-60 p-2 border rounded-md focus:outline-none"
           />
-
-          {/* <div className="flex gap-2 items-center">
-            <label htmlFor="">Total minutes played</label>
-            <input
-              className="text-center text-black rounded-md p-1 w-20 border-2"
-              type="number"
-              value={totalMinutes ?? ""}
-              onChange={(e) => setTotalMinutes(Number(e.target.value))}
-            />
-            <span>minutes</span>
-          </div> */}
 
           <form>
             {/* convert button */}
@@ -121,15 +125,7 @@ export default function Home() {
         {/* click to send data to /api/fee-calculate */}
         <button
           className="text-white text-xl bg-zinc-700 w-44 rounded-md p-8 hover:bg-zinc-800 transition"
-          onClick={async () => {
-            const response = await axios.post("/api/fee-calculate", {
-              participants,
-              shuttlePrice,
-              hourlyRates: hourlyRates?.split(","),
-            });
-            
-            console.log(response.data)
-          }}
+          onClick={submitData}
         >
           Submit
         </button>
