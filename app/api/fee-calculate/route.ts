@@ -5,6 +5,7 @@ import { Participant } from "@/app/types";
 import { NextResponse } from "next/server";
 
 interface RequestBody {
+  name: string;
   participants: Participant[];
   hourlyRates: number[];
   shuttlePrice: number;
@@ -20,7 +21,8 @@ interface RequestBody {
       { "name": "Jane Dee", "minutesPlayed": 90, }
     ],
     "hourlyRates": [50, 50],
-    "shuttlePrice": 240
+    "shuttlePrice": 240,
+    "name": "Session 1",
   }
 */
 
@@ -34,7 +36,7 @@ export async function POST(request: Request) {
 
   const body: RequestBody = await request.json();
 
-  const { participants, hourlyRates, shuttlePrice } = body;
+  const { participants, hourlyRates, shuttlePrice, name } = body;
 
   if (!participants || !hourlyRates || !shuttlePrice) {
     return new Response("Invalid input", { status: 400 });
@@ -128,6 +130,7 @@ export async function POST(request: Request) {
 
     // create new session with reference to the participants
     const newSession = new Session({
+      name: name || "New Session",
       date: new Date().toISOString(),
       startTime: new Date().toISOString(),
       endTime: new Date().toISOString(),

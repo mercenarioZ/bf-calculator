@@ -1,6 +1,7 @@
 import mongoose, { Schema, Document, Model } from "mongoose";
 
 interface SessionDocument extends Document {
+  name: string;
   date: string;
   startTime: string;
   endTime: string;
@@ -10,6 +11,7 @@ interface SessionDocument extends Document {
 }
 
 const SessionSchema = new Schema<SessionDocument>({
+  name: { type: String, required: true },
   date: { type: String, required: true },
   startTime: { type: String, required: true },
   endTime: { type: String, required: true },
