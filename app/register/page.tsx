@@ -1,67 +1,43 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-import Modal from "../components/Modal";
 import axios from "axios";
+import { SessionDocument } from "../models/Session";
 
 const Register = () => {
-  const [isModalOpen, setIsModalOpen] = React.useState(false);
-  const [name, setName] = React.useState("");
+  const [sessions, setSessions] = useState([]);
 
-  const handleCheckInformation = async () => {
-    try {
-      const response = await axios.post("/api/check", { name });
-      console.log(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  useEffect(() => {
+    const fetchSessions = async () => {
+      try {
+        const { data } = await axios.get("/api/check");
+        console.log(data);
+        setSessions(data);
+      } catch (error) {
+        console.log("failed to fetch sessions: ", error);
+      }
+    };
+
+    fetchSessions();
+  }, []);
+
   return (
     <div>
       <Navbar />
       <div className="pt-20 p-2">
         <div className="flex justify-center">
-          <button
-            className="p-2 bg-slate-100 hover:bg-slate-300 transition text-black rounded"
-            onClick={() => setIsModalOpen(true)}
-          >
-            Check for information
-          </button>
-          <Modal
-            isOpen={isModalOpen}
-            onClose={() => setIsModalOpen(false)}
-          >
-            <h1 className="text-xl font-semibold text-center pb-4">
-              Provide your information here
-            </h1>
-
-            <p className="font-medium text-slate-600 text-sm mx-auto w-full text-center pb-2 opacity-75">
-              We will check your name and send back to you some information
-              about the court fee!
-            </p>
-
-            <form className="flex flex-col gap-2">
-              <label htmlFor="name">Name</label>
-              <input
-                type="text"
-                id="name"
-                className="p-1 rounded"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-
-              <div className="flex justify-center mt-4">
-                <button
-                  type="submit"
-                  className="p-2 bg-slate-100 max-w-44 transition hover:bg-slate-300 text-black rounded"
-                  onClick={handleCheckInformation}
-                >
-                  Check for information
-                </button>
+          <div>
+            {sessions.map((session: SessionDocument) => (
+              <div className="rounded border p-4 border-slate-500" key={session.name}>
+                <ul>
+                  <li className="text-xl font-semibold pb-4">Session 1 - 19h - 21h - San Binh Thang</li>
+                  <li>{session.hourlyRates}</li>
+                  <li>{session.date}</li>
+                </ul>
               </div>
-            </form>
-          </Modal>
+            ))}
+          </div>
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document, Model } from "mongoose";
 
-interface SessionDocument extends Document {
+export interface SessionDocument extends Document {
   name: string;
   date: string;
   startTime: string;

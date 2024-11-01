@@ -1,17 +1,16 @@
 import connect from "@/app/libs/db";
-import { NextApiRequest, NextApiResponse } from "next";
+import Session from "@/app/models/Session";
 import { NextResponse } from "next/server";
 
-export async function POST(request: Request) {
+export async function GET() {
   await connect();
-  const { name } = await request.json();
 
-  console.log(name);
+  // get all sessions
+  try {
+    const allSessions = await Session.find({});
 
-  if (name) {
-    // get information from the database
-    return NextResponse.json({ message: "Information found" }); 
-  } else {
-    return NextResponse.json({ message: "Information not found" }, { status: 404 });
+    return NextResponse.json(allSessions, { status: 200 });
+  } catch (error) {
+    console.log("something went wrong: ", error);
   }
 }
