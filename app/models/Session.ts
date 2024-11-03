@@ -1,11 +1,12 @@
-import mongoose, { Schema, Document, Model } from "mongoose";
+import mongoose, { Schema, Document, Model, Types } from "mongoose";
+import { ParticipantDocument } from "./Participant";
 
 export interface SessionDocument extends Document {
   name: string;
   date: string;
   startTime: string;
   endTime: string;
-  participants: mongoose.Types.ObjectId[];
+  participants: (Types.ObjectId | ParticipantDocument)[];
   hourlyRates: number[];
   shuttleFee: number;
 }

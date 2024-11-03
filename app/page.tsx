@@ -24,7 +24,6 @@ export default function Home() {
         hourlyRates: hourlyRates?.split(","),
       });
 
-      console.log(response.data);
       toast.success("Fee calculated, session created");
     } catch (error) {
       console.error("Failed to calculate fee: ", error);

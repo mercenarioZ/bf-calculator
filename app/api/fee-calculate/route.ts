@@ -38,9 +38,11 @@ export async function POST(request: Request) {
 
   const { participants, hourlyRates, shuttlePrice, name } = body;
 
+  // validate the input
   if (!participants || !hourlyRates || !shuttlePrice) {
     return new Response("Invalid input", { status: 400 });
   }
+
   // calculate the total minutes played from all participants
   const totalMinutesOfAllParticipants = participants.reduce(
     (acc, participant) => acc + participant.minutesPlayed,
@@ -63,8 +65,6 @@ export async function POST(request: Request) {
       return sum + minutesThisHour;
     }, 0);
 
-    console.log("total minutes in hour: ", totalMinutesInHour);
-
     return participants.map((p) => {
       const minutesThisHour = Math.min(
         60,
@@ -73,7 +73,7 @@ export async function POST(request: Request) {
 
       return {
         name: p.name,
-        hourlyFee: (minutesThisHour / totalMinutesInHour) * hourlyRate || 0,
+        hourlyFee: (minutesThisHour / totalMinutesInHour) * hourlyRate,
       };
     });
   };

@@ -2,7 +2,7 @@ import mongoose, { Schema, Document, Model, Types } from "mongoose";
 import { Participant } from "../types";
 
 // define the Participant interface
-interface ParticipantDocument extends Participant, Document {}
+export interface ParticipantDocument extends Participant, Document {}
 
 export const ParticipantSchema = new Schema<ParticipantDocument>({
   name: { type: String, required: true },
