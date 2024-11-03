@@ -49,7 +49,14 @@ export async function POST(request: Request) {
     0
   );
 
-  console.log(totalMinutesOfAllParticipants);
+  console.log(
+    "Total minutes of all participants: ",
+    totalMinutesOfAllParticipants
+  );
+
+  const maxPossibleMinutes = hourlyRates.length * 60 * participants.length;
+  const isLastHourException: boolean =
+    totalMinutesOfAllParticipants < maxPossibleMinutes;
 
   const calculateCourtFee = (
     hour: number,
@@ -65,15 +72,31 @@ export async function POST(request: Request) {
       return sum + minutesThisHour;
     }, 0);
 
-    return participants.map((p) => {
+    const sortedMinutes = participants
+      .map((p) => {
+        const minutesThisHour = Math.min(
+          60,
+          Math.max(p.minutesPlayed - hour * 60, 0)
+        );
+
+        return minutesThisHour;
+      })
+      .sort((a, b) => b - a);
+
+    return participants.map((p, index) => {
       const minutesThisHour = Math.min(
         60,
         Math.max(p.minutesPlayed - hour * 60, 0)
       );
 
+      console.log(`Participant ${index}: `, minutesThisHour);
+
       return {
         name: p.name,
-        hourlyFee: (minutesThisHour / totalMinutesInHour) * hourlyRate,
+        hourlyFee: isLastHourException
+          ? (minutesThisHour / totalMinutesInHour) *
+              ((sortedMinutes[0] / 60) * hourlyRate) || 0
+          : (minutesThisHour / totalMinutesInHour) * hourlyRate,
       };
     });
   };
