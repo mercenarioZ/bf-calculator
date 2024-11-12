@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import { ParticipantDocument } from "../models/Participant";
 import HoverModal from "./HoverModal";

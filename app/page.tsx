@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { convertStringToArray } from "./utils/script";
 import toast from "react-hot-toast";
 import { Participant } from "./types";
@@ -35,7 +35,7 @@ export default function Home() {
     <div className="h-[100vh] bg-white">
       <Navbar />
 
-      <div className="pt-20 text-zinc-800 flex items-center justify-center gap-4 px-4">
+      <div className="pt-20 text-zinc-800 mx-12 flex items-center justify-center gap-4 px-4">
         <div className="flex flex-col gap-3 items-center">
           <div className="flex gap-4 items-start flex-col">
             <div className="flex gap-2 items-center">
@@ -133,11 +133,15 @@ export default function Home() {
           </form>
         </div>
 
+        {participants.length !== 0 && <div className="flex-1"></div>}
+
         {participants.length > 0 && (
-          <ConvertedParticipantsList
-            participants={participants}
-            setParticipants={setParticipants}
-          />
+          <div>
+            <ConvertedParticipantsList
+              participants={participants}
+              setParticipants={setParticipants}
+            />
+          </div>
         )}
       </div>
 

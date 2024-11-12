@@ -20,9 +20,9 @@ const ConvertedParticipantsList: React.FC<ParticipantsListProps> = ({
   };
 
   return (
-    <div className="flex flex-col gap-2 items-center">
+    <div className="flex flex-col gap-2 items-center justify-normal">
       <button
-        className="rounded-md bg-zinc-800 p-2 w-20 text-white"
+        className="rounded-md bg-zinc-800 p-2 w-20 text-white mb-4"
         onClick={() => setParticipants([])}
       >
         Clear

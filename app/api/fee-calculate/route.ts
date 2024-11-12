@@ -27,19 +27,17 @@ interface RequestBody {
 */
 
 export async function POST(request: Request) {
-  // connect to the database
-  try {
-    await connect();
-  } catch (error) {
-    console.log(error);
-  }
-
   const body: RequestBody = await request.json();
 
   const { participants, hourlyRates, shuttlePrice, name } = body;
 
   // validate the input
-  if (!participants || !hourlyRates || !shuttlePrice) {
+  if (
+    !participants ||
+    !hourlyRates ||
+    !shuttlePrice ||
+    hourlyRates.length < 1
+  ) {
     return new Response("Invalid input", { status: 400 });
   }
 
