@@ -20,11 +20,11 @@ const Register = () => {
       try {
         const { data } = await axios.get("/api/check");
 
-        console.log(data);
+        // console.log(data);
 
         data.sort(
           (a: SessionDocument, b: SessionDocument) =>
-            new Date(b.date).getTime() - new Date(a.date).getTime(),
+            new Date(b.date).getTime() - new Date(a.date).getTime()
         );
 
         setSessions(data);
@@ -35,7 +35,7 @@ const Register = () => {
     };
 
     fetchSessions();
-  }, []);
+  }, [sessions]);
 
   const handleSessionClick = (session: SessionDocument) => {
     setIsModalOpen(true);
@@ -80,7 +80,7 @@ const Register = () => {
                   Total fees:{" "}
                   {selectedSession.participants.reduce(
                     (acc, participant: any) => acc + participant.totalFee,
-                    0,
+                    0
                   )}{" "}
                   (kVND)
                 </li>
