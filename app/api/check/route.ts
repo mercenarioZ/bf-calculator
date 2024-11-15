@@ -1,8 +1,7 @@
-import { connectDb, disconnectDb } from "@/app/libs/db";
+import connectDb from "@/app/libs/db";
 import Session from "@/app/models/Session";
 import { NextResponse } from "next/server";
 import ParticipantModel from "@/app/models/Participant";
-import { headers } from "next/headers";
 
 export async function GET() {
   await connectDb();
@@ -13,8 +12,6 @@ export async function GET() {
       path: "participants",
       model: ParticipantModel,
     });
-
-    disconnectDb();
 
     return NextResponse.json(allSessions, {
       status: 200,

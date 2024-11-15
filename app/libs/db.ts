@@ -1,39 +1,44 @@
-import mongoose from "mongoose";
+import mongoose, { Connection } from 'mongoose';
 
-const MONGODB_URI =
-  process.env.MONGODB_URI;
+const MONGODB_URI = process.env.MONGODB_URI || 'your-mongodb-uri';
 
 if (!MONGODB_URI) {
-  throw new Error("Please define the MONGO_URI environment variable.");
+  throw new Error('Please define the MONGODB_URI environment variable inside .env.local');
 }
 
-let isConnected = false; // To track the connection status
+/**
+ * Global is used here to maintain a cached connection across hot reloads in development.
+ * This prevents connections growing exponentially during API Route usage.
+ */
+declare global {
+  // eslint-disable-next-line no-var
+  var mongoose: {
+    conn: Connection | null;
+    promise: Promise<Connection> | null;
+  };
+}
+let cached = global.mongoose;
 
-export const connectDb = async () => {
-  if (isConnected) {
-    console.log("MongoDB is already connected.");
-    return;
+if (!cached) {
+  cached = global.mongoose = { conn: null, promise: null };
+}
+
+async function connectDb() {
+  if (cached.conn) {
+    return cached.conn;
   }
 
-  try {
-    const connection = await mongoose.connect(MONGODB_URI as string);
+  if (!cached.promise) {
+    const opts = {
+      bufferCommands: false,
+    };
 
-    isConnected = !!connection.connections[0].readyState;
-    console.log("MongoDB connected successfully.");
-  } catch (error) {
-    console.error("Error connecting to MongoDB:", error);
-    throw new Error("Failed to connect to MongoDB");
+    cached.promise = mongoose.connect(MONGODB_URI!, opts).then((mongoose) => {
+      return mongoose.connection;
+    });
   }
-};
+  cached.conn = await cached.promise;
+  return cached.conn;
+}
 
-export const disconnectDb = async () => {
-  if (!isConnected) return;
-
-  try {
-    await mongoose.disconnect();
-    isConnected = false;
-    console.log("MongoDB disconnected successfully.");
-  } catch (error) {
-    console.error("Error disconnecting MongoDB:", error);
-  }
-};
+export default connectDb;

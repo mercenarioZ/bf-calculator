@@ -1,4 +1,4 @@
-import { connectDb } from "@/app/libs/db";
+import connectDb from "@/app/libs/db";
 import ParticipantModel from "@/app/models/Participant";
 import Session from "@/app/models/Session";
 import { Participant } from "@/app/types";
