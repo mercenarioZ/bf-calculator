@@ -18,7 +18,11 @@ const Register = () => {
   useEffect(() => {
     const fetchSessions = async () => {
       try {
-        const { data } = await axios.get("/api/check");
+        const { data } = await axios.get("/api/check", {
+          headers: {
+            "Cache-Control": "no-store",
+          },
+        });
 
         console.log(data);
 
