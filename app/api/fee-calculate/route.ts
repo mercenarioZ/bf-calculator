@@ -1,4 +1,4 @@
-import connect from "@/app/libs/db";
+import { connectDb } from "@/app/libs/db";
 import ParticipantModel from "@/app/models/Participant";
 import Session from "@/app/models/Session";
 import { Participant } from "@/app/types";
@@ -130,7 +130,7 @@ export async function POST(request: Request) {
 
   // update the database
   try {
-    await connect();
+    await connectDb();
 
     // save each participant to the participants collection
     const participantIds = await Promise.all(

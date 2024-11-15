@@ -1,4 +1,4 @@
-import connect from "@/app/libs/db";
+import { connectDb } from "@/app/libs/db";
 import Session from "@/app/models/Session";
 import { NextResponse } from "next/server";
 import ParticipantModel, {
@@ -6,8 +6,8 @@ import ParticipantModel, {
 } from "@/app/models/Participant";
 
 export async function GET() {
-  await connect();
-
+  await connectDb();
+  
   // get all sessions
   try {
     const allSessions = await Session.find({}).populate({
