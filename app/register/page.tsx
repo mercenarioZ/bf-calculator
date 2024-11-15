@@ -18,7 +18,7 @@ const Register = () => {
   useEffect(() => {
     const fetchSessions = async () => {
       try {
-        const { data } = await axios.get("/api/check", {
+        const { data } = await axios.get(`/api/check?_=${Date.now()}`, {
           headers: {
             "Cache-Control": "no-store",
           },
@@ -32,6 +32,8 @@ const Register = () => {
         );
 
         setSessions(data);
+
+        return data;
       } catch (error) {
         console.log("failed to fetch sessions: ", error);
         toast.error("Something went wrong when fetching sessions");
