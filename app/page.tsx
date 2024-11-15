@@ -35,14 +35,12 @@ export default function Home() {
     <div className="h-[100vh] bg-white">
       <Navbar />
 
-      <div className="pt-20 text-zinc-800 mx-12 flex items-center justify-center gap-4 px-4">
+      <div className="pt-20 max-w-[1280px] text-zinc-800 mx-auto px-12 flex items-center justify-center gap-4">
         <div className="flex flex-col gap-3 items-center">
           <div className="flex gap-4 items-start flex-col">
+            {/* session name input  */}
             <div className="flex gap-2 items-center">
-              <label
-                htmlFor="shuttlePrice"
-                className="w-[100px]"
-              >
+              <label htmlFor="shuttlePrice" className="w-[100px]">
                 Session name
               </label>
               <input
@@ -54,11 +52,10 @@ export default function Home() {
                 placeholder="Court name: Start time - End time"
               />
             </div>
+
+            {/* shuttle price input */}
             <div className="flex gap-2 items-center">
-              <label
-                htmlFor="shuttlePrice"
-                className="w-[100px]"
-              >
+              <label htmlFor="shuttlePrice" className="w-[100px]">
                 Shuttle price
               </label>
               <input
@@ -72,10 +69,7 @@ export default function Home() {
             </div>
 
             <div className="flex gap-2 items-center">
-              <label
-                className="w-[100px]"
-                htmlFor="hourlyRates"
-              >
+              <label className="w-[100px]" htmlFor="hourlyRates">
                 Hourly rates
               </label>
               <input
