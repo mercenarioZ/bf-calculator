@@ -20,7 +20,7 @@ const Register = () => {
       try {
         const { data } = await axios.get("/api/check");
 
-        // console.log(data);
+        console.log(data);
 
         data.sort(
           (a: SessionDocument, b: SessionDocument) =>
@@ -35,7 +35,7 @@ const Register = () => {
     };
 
     fetchSessions();
-  }, [sessions]);
+  }, []);
 
   const handleSessionClick = (session: SessionDocument) => {
     setIsModalOpen(true);
